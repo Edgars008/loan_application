@@ -1,16 +1,13 @@
-package lv.twino;
+package lv.twino.service;
 
 import lv.twino.model.Client;
 import lv.twino.model.Country;
 import lv.twino.model.Loan;
 import lv.twino.repository.ClientRepository;
 import lv.twino.repository.CountryRepository;
-import lv.twino.service.LoanService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 public class LoanServiceTest {
     @Autowired
@@ -46,7 +43,7 @@ public class LoanServiceTest {
         Loan loan = this.loanService.apply(new Loan(new BigDecimal(1000), 60, country, client));
         List<Loan> result = this.loanService.getByClient(client.getId());
 
-      //  assertThat(result.iterator().next(), is(loan));
+        //assertThat(result.iterator().next(), is(loan));
 
 
     }

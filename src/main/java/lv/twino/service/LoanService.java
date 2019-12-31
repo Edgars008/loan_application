@@ -5,11 +5,11 @@ import lv.twino.model.Loan;
 import lv.twino.repository.LoanRepository;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class LoanService {
 
     @Autowired
@@ -25,7 +25,7 @@ public class LoanService {
     }
 
     public List<Loan> getByClient(Integer clientId){
-        return this.repository.findByPerson(new Client(clientId));
+        return this.repository.findByClient(new Client(clientId));
     }
 
  

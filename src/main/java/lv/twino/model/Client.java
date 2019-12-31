@@ -17,7 +17,8 @@ public class Client {
     private String surname;
 
     public Client(Integer clientId) {
-
+        super();
+        this.id = clientId;
     }
     public Client(String name, String surname) {
         super();

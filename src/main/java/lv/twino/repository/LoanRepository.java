@@ -10,12 +10,7 @@ import java.util.List;
 @Repository
 public interface LoanRepository extends CrudRepository<Loan, Integer> {
 
-    List<Loan> findByPerson(Client client);
+    List<Loan> findByClient(Client client);
 
-    Loan apply(Loan loan);
-
-    List<Loan> getAll();
-
-    List<Loan> getByClient(int clientId);
 
 }

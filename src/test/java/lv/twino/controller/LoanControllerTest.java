@@ -43,9 +43,12 @@
 //                new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"))
 //        );
 //
+//
 //        ObjectMapper mapper = new ObjectMapper();
 //
-//        given(this.loanService.getAll()).willReturn(list);
+//
+//      this.loanService.getAll()).willReturn(list);
+//
 //        this.mvc.perform(
 //                get("/").accept(MediaType.APPLICATION_JSON_UTF8)
 //        ).andExpect(
@@ -73,9 +76,10 @@
 //
 //    @Test
 //    public void whenApplyThenSave() throws Exception {
-//        Loan loan = new Loan("test", 1D, new Country("Russia"), new Person("Petr", "Arsentev"));
+//        Loan loan = new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"));
 //        ObjectMapper mapper = new ObjectMapper();
-//        given(this.blackListService.isBlackListPerson(0)).willReturn(false);
+//
+//        this.blackListService.isBlackListClient(0);
 //        given(this.loanService.apply(loan)).willReturn(loan);
 //        this.mvc.perform(
 //                post("/").contentType(MediaType.APPLICATION_JSON_UTF8).content(
