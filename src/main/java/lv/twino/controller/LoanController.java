@@ -46,6 +46,12 @@ public class LoanController {
 
     }
 
+//    @PostMapping(value = "/all")
+//    public List<Loan> getAll() {
+//        return loanService.createLoans();
+//
+//    }
+
     @GetMapping(value = "/{clientId}")
     public List<Loan> findByClientId(@PathVariable Integer clientId) {
         return loanService.getByClient(clientId);

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "blacklist")
 public class BlackList {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

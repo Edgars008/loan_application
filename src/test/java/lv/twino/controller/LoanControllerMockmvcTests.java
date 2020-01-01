@@ -49,7 +49,7 @@ public class LoanControllerMockmvcTests {
 //        Loan loan = this.loanService.apply(new Loan(new BigDecimal(1000), 60, country, client));
 //        List<Loan> result = this.loanService.getAll();
 
-        this.mockMvc.perform(post("/loans/add")).andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(post("/loans/all")).andExpect(status().is2xxSuccessful());
         this.mockMvc.perform(get("/loans/1")).andDo(print()).andExpect(status().isOk())
           .andExpect(content().string(containsString("Edgars")));
     }
