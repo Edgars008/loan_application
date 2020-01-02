@@ -1,14 +1,14 @@
 package lv.twino.controller;
 
+import lv.twino.controller.apply_forms.ApplyResult;
+import lv.twino.controller.apply_forms.ErrorResult;
+import lv.twino.controller.apply_forms.SuccessResult;
 import lv.twino.model.Loan;
 import lv.twino.service.BlackListService;
 import lv.twino.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,19 +23,20 @@ public class LoanController {
 
  
     @PostMapping(value = "/add")
-    public ResponseEntity<Void> apllyForTheLoan(@RequestBody final Loan loan) {
+    public ApplyResult apllyForTheLoan(@RequestBody final Loan loan) {
 
+    final ApplyResult applyResult;
         if (!this.blackListService.isBlackListClient(loan.getClient().getId())){
-            this.loanService.apply(loan);
+            applyResult = new SuccessResult<Loan>(this.loanService.apply(loan));
         }else {
-            String.format("User %s %s with id %s is in the blacklist!",
+            applyResult = new ErrorResult(
+                    String.format("User %s %s with id %s is in the blacklist!",
                     loan.getClient().getName(),
                     loan.getClient().getSurname(),
-                    loan.getClient().getId());
+                    loan.getClient().getId()));
         }
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(location).build();
+        return applyResult;
 
     }
 
