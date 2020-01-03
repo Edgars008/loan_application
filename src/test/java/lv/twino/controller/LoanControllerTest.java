@@ -4,16 +4,19 @@ package lv.twino;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lv.twino.controller.LoanController;
 import lv.twino.controller.apply_forms.ErrorResult;
+import lv.twino.controller.apply_forms.SuccessResult;
 import lv.twino.model.Client;
 import lv.twino.model.Country;
 import lv.twino.model.Loan;
 import lv.twino.service.BlackListService;
 import lv.twino.service.LoanService;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -24,7 +27,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 
-//@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 @WebMvcTest(LoanController.class)
 public class LoanControllerTest {
 
@@ -82,21 +85,23 @@ public class LoanControllerTest {
                 content(mapper.writeValueAsString(loan)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().
-                        string(mapper.writeValueAsString(loan))
+                        string(mapper.writeValueAsString(new SuccessResult<Loan>(loan)))
                 );
 
     }
 
     @Test
     public void whenClientIsInBlacklistThenError() throws Exception {
+
+        Loan loan = new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"));
         ObjectMapper mapper = new ObjectMapper();
 
         given(this.blackListService.isBlackListClient(0)).willReturn(true);
 
         this.mvc.perform(MockMvcRequestBuilders.post("/loans/add").
                 contentType(MediaType.APPLICATION_JSON).
-                content(mapper.writeValueAsString(
-                        new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis")))))
+                content(mapper.writeValueAsString(loan)
+                       ))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .string(mapper.writeValueAsString
