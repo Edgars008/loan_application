@@ -19,7 +19,7 @@ public class Country {
     }
 
     public Country(String name) {
-        super();
+        this();
         this.countryName = name;
     }
 

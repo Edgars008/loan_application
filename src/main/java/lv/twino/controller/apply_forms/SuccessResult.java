@@ -1,13 +1,13 @@
 package lv.twino.controller.apply_forms;
 
 public class SuccessResult<T> extends ApplyResult {
-    private final T value;
+    private final T success;
 
-    public SuccessResult(T value) {
-        this.value = value;
+    public SuccessResult(T success) {
+        this.success = success;
     }
 
     public T getMessage() {
-        return value;
+        return success;
     }
 }

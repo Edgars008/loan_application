@@ -12,7 +12,7 @@ public class BlackListService {
     private BlackListRepository repository;
 
       public boolean isBlackListClient(Integer clientId) {
-          return repository.findByClient(new Client(clientId)) != null;
+          return this.repository.findByClient(new Client(clientId)) != null;
 
     }
 

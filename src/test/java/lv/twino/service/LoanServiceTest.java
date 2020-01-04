@@ -5,6 +5,7 @@ import lv.twino.model.Country;
 import lv.twino.model.Loan;
 import lv.twino.repository.ClientRepository;
 import lv.twino.repository.CountryRepository;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-
+import static org.hamcrest.CoreMatchers.is;
 
 
 @SpringBootTest
@@ -28,7 +29,7 @@ public class LoanServiceTest {
     private LoanService loanService;
 
     @Test
-    public void whenApplyForTheLoadThenSaveInDb() {
+    public void whenApplyForTheLoanThenSaveInDb() {
         Client client = this.clientRepository.save(new Client("Edgars", "Naglis"));
         Country country = this.countryRepository.save(new Country("Latvia"));
         Loan loan = this.loanService.apply(new Loan(new BigDecimal(1000), 60, country, client));
@@ -37,13 +38,13 @@ public class LoanServiceTest {
     }
 
     @Test
-    public void whenFindByPersonThenReturnListOnlyForRerson() {
+    public void whenFindByClientsIdThenReturnListOnlyForClient() {
         Client client = this.clientRepository.save(new Client("Edgars", "Naglis"));
         Country country = this.countryRepository.save(new Country("Latvia"));
         Loan loan = this.loanService.apply(new Loan(new BigDecimal(1000), 60, country, client));
         List<Loan> result = this.loanService.getByClient(client.getId());
 
-        //assertThat(result.iterator().next(), is(loan));
+        Assert.assertThat(result.iterator().next(), is(loan));
 
 
     }

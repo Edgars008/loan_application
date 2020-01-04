@@ -45,7 +45,8 @@ public class LoanControllerTest {
     public void whenClientIsNotInBlackListThenApplyLoan() throws Exception {
 
         List<Loan> list = Collections.singletonList(
-                new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"))
+                new Loan(new BigDecimal(1000), 60, new Country("Latvia"),
+                        new Client("Edgars", "Naglis"))
         );
         ObjectMapper mapper = new ObjectMapper();
         given(this.loanService.getAll()).willReturn(list);
@@ -60,7 +61,8 @@ public class LoanControllerTest {
     @Test
     public void whenLoadThenApplyForTheLoan() throws Exception {
         List<Loan> list = Collections.singletonList(
-                new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"))
+                new Loan(new BigDecimal(1000), 60, new Country("Latvia"),
+                        new Client("Edgars", "Naglis"))
         );
         ObjectMapper mapper = new ObjectMapper();
         given(this.loanService.getByClient(0)).willReturn(list);
@@ -74,7 +76,8 @@ public class LoanControllerTest {
 
     @Test
     public void whenApplyForTheLoanThanSave() throws Exception {
-        Loan loan = new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"));
+        Loan loan = new Loan(new BigDecimal(1000), 60, new Country("Latvia"),
+                new Client("Edgars", "Naglis"));
         ObjectMapper mapper = new ObjectMapper();
 
         given(this.blackListService.isBlackListClient(0)).willReturn(false);
@@ -93,18 +96,19 @@ public class LoanControllerTest {
     @Test
     public void whenClientIsInBlacklistThenError() throws Exception {
 
-        Loan loan = new Loan(new BigDecimal(1000), 60, new Country("Latvia"), new Client("Edgars", "Naglis"));
         ObjectMapper mapper = new ObjectMapper();
 
         given(this.blackListService.isBlackListClient(0)).willReturn(true);
 
         this.mvc.perform(MockMvcRequestBuilders.post("/loans/add").
                 contentType(MediaType.APPLICATION_JSON).
-                content(mapper.writeValueAsString(loan)
-                       ))
+                content(mapper.writeValueAsString(
+                        new Loan(new BigDecimal(1000), 60, new Country("Latvia"),
+                        new Client("Edgars", "Naglis")))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .string(mapper.writeValueAsString
-                        (new ErrorResult("User Edgars Naglis with id 0 is in the blacklist!"))));
+                        (new ErrorResult("User Edgars Naglis with id 0 " +
+                                "is in the blacklist!"))));
     }
 }

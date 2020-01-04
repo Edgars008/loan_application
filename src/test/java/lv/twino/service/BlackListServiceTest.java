@@ -5,14 +5,16 @@ import lv.twino.model.Client;
 import lv.twino.repository.BlackListRepository;
 import lv.twino.repository.ClientRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
-
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class BlackListServiceTest {
     @Autowired

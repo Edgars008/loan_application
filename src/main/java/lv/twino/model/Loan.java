@@ -31,7 +31,7 @@ public class Loan {
     }
 
     public Loan(BigDecimal amount, int term, Country country, Client client) {
-        super();
+        this();
         this.amount = amount;
         this.term = term;
         this.country = country;

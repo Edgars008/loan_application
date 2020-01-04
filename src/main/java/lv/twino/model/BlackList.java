@@ -20,7 +20,7 @@ public class BlackList {
     }
 
     public BlackList(Client client) {
-        super();
+        this();
         this.client = client;
     }
 

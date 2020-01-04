@@ -23,9 +23,10 @@ public class LoanController {
 
  
     @PostMapping(value = "/add")
-    public ApplyResult apllyForTheLoan(@RequestBody final Loan loan) {
+    public ApplyResult apllyForTheLoan(@RequestBody Loan loan) {
 
-    final ApplyResult applyResult;
+     ApplyResult applyResult;
+
         if (!this.blackListService.isBlackListClient(loan.getClient().getId())){
             applyResult = new SuccessResult<Loan>(this.loanService.apply(loan));
         }else {
@@ -47,11 +48,6 @@ public class LoanController {
 
     }
 
-//    @PostMapping(value = "/all")
-//    public List<Loan> getAll() {
-//        return loanService.createLoans();
-//
-//    }
 
     @GetMapping(value = "/{clientId}")
     public List<Loan> findByClientId(@PathVariable Integer clientId) {
