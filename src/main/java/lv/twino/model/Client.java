@@ -26,7 +26,7 @@ public class Client {
         this.surname = surname;
     }
 
-    public Client() {
+    public Client(Client client) {
 
     }
 

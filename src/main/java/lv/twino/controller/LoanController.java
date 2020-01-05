@@ -20,13 +20,10 @@ public class LoanController {
 
     @Autowired
     private BlackListService blackListService;
-
  
     @PostMapping(value = "/add")
     public ApplyResult apllyForTheLoan(@RequestBody Loan loan) {
-
-     ApplyResult applyResult;
-
+     final ApplyResult applyResult;
         if (!this.blackListService.isBlackListClient(loan.getClient().getId())){
             applyResult = new SuccessResult<Loan>(this.loanService.apply(loan));
         }else {
@@ -36,23 +33,17 @@ public class LoanController {
                     loan.getClient().getSurname(),
                     loan.getClient().getId()));
         }
-
         return applyResult;
-
     }
-
 
     @GetMapping(value = "/all")
     public List<Loan> getAll() {
         return loanService.getAll();
-
     }
-
 
     @GetMapping(value = "/{clientId}")
     public List<Loan> findByClientId(@PathVariable Integer clientId) {
         return loanService.getByClient(clientId);
-
     }
 
 }
