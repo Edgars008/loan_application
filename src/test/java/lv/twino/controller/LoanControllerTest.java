@@ -82,7 +82,8 @@ public class LoanControllerTest {
                 new Client("Edgars", "Naglis"));
         ObjectMapper mapper = new ObjectMapper();
 
-        given(this.blackListService.isBlackListClient(loan.getClient().getId())).willReturn(false);
+        given(this.blackListService.isBlackListClient(
+                loan.getClient().getId())).willReturn(false);
         given(this.loanService.apply(loan)).willReturn(loan);
 
         this.mvc.perform(MockMvcRequestBuilders.post("/loans/add").
@@ -104,6 +105,7 @@ public class LoanControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        //given(this.blackListService.isBlackListClient(0)).willReturn(true);
         given(this.blackListService.isBlackListClient(loan.getClient().getId())).willReturn(true);
 
 
@@ -113,7 +115,7 @@ public class LoanControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .string(mapper.writeValueAsString
-                        (new ErrorResult("User Edgars Naglis with id 0 " +
+                        (new ErrorResult("User Edgars Naglis with id null " +
                                 "is in the blacklist!"))));
     }
 }

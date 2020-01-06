@@ -26,7 +26,8 @@ public class LoanController {
      final ApplyResult applyResult;
         if (!this.blackListService.isBlackListClient(loan.getClient().getId())){
             applyResult = new SuccessResult<Loan>(this.loanService.apply(loan));
-        }else {
+        }
+        else {
             applyResult = new ErrorResult(
                     String.format("User %s %s with id %s is in the blacklist!",
                     loan.getClient().getName(),
